@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Data
@@ -28,9 +29,16 @@ public class ProductEntity {
         this.regDate = regDate;
         try {
             this.image = new ImageIcon(
-                    ImageIO.read(Objects.requireNonNull(ProductEntity.class.getClassLoader().getResource(imagePath))).getScaledInstance(60,60, Image.SCALE_DEFAULT)
+                    ImageIO.read(ProductEntity.class.getClassLoader().getResource(imagePath)).getScaledInstance(60,60,Image.SCALE_DEFAULT)
             );
         } catch (Exception e) {
+            try {
+                this.image = new ImageIcon(
+                        ImageIO.read(ProductEntity.class.getClassLoader().getResource("icon.png")).getScaledInstance(60,60,Image.SCALE_DEFAULT)
+                );
+            } catch (Exception ex) {
+
+            }
         }
     }
 
